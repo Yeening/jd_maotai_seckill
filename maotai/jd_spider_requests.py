@@ -578,7 +578,7 @@ class JdSeckill(object):
             'skuId': self.sku_id,
         }
         try:
-            self.seckill_order_data[self.sku_id] = self._get_seckill_order_data()
+            self.seckill_order_data = self._get_seckill_order_data()
         except Exception as e:
             logger.info('抢购失败，无法获取生成订单的基本信息，接口返回:【{}】'.format(str(e)))
             return False
@@ -593,8 +593,7 @@ class JdSeckill(object):
         resp = self.session.post(
             url=url,
             params=payload,
-            data=self.seckill_order_data.get(
-                self.sku_id),
+            data=self.seckill_order_data,
             headers=headers)
         resp_json = None
         try:
